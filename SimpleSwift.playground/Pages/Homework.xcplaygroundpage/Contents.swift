@@ -40,7 +40,7 @@ func calculate(_ args: [String]) -> Int {
         
     } else if (args.contains("fact")) { // fact
         guard var num = Int(args[0]) else {return 0};
-        // max(1, num) if or num = 1
+        // max(1, num) if or num = 0
         return (1...max(1, num)).reduce(1, *);
     }
     
