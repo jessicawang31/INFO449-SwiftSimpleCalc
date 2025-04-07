@@ -27,11 +27,50 @@ print("Welcome to the UW Calculator Playground")
 //: For this latter set of operations, it is safe to assume that `["count"]` (with no additional arguments) is 0, `["avg"]` is also 0, and `["fact"]` is 0. `["1", "fact"]` should return 1, and `["0", "fact"]` should also return 1. (Yes, 0-factorial is 1. True story.)
 //: 
 func calculate(_ args: [String]) -> Int {
-    return -1
+    if (args.contains("count")) { // count
+        return args.count - 1;
+        
+    } else if (args.contains("avg")) { // avg
+        var sum = 0;
+        // need to dropLast elem doesnt mutate original array removeLast does
+        let nums = args.dropLast().compactMap(Int.init);
+        guard !nums.isEmpty else {return 0};
+        // sum / count
+        return nums.reduce(0, +) / nums.count;
+        
+    } else if (args.contains("fact")) { // fact
+        guard var num = Int(args[0]) else {return 0};
+        // max(1, num) if or num = 1
+        return (1...max(1, num)).reduce(1, *);
+    }
+    
+    // guard case?
+    guard args.count == 3, let val1 = Int(args[0]), let val2 = Int(args[2]) else {return 0};
+    switch args[1] {
+    // +
+    case "+":
+        return val1 + val2;
+    // -
+    case "-":
+        return val1 - val2;
+    // *
+    case "*":
+        return val1 * val2;
+    // /
+    case "/":
+        return val1 / val2;
+    // %
+    case "%":
+        return val1 % val2;
+    default:
+        return 0;
+    }
 }
 
 func calculate(_ arg: String) -> Int {
-    return -1
+    let split = arg.split(separator: " "); // split by white space
+    let mapped = split.map(String.init);
+    return calculate(mapped);
 }
 
 //: Below this are the test expressions/calls to verify if your code is correct.
